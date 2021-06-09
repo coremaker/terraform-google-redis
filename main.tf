@@ -11,6 +11,8 @@ resource "google_redis_instance" "cache" {
 
   redis_version     = var.instance_version
   display_name      = "Redis-${var.instance_name}"
+
+  depends_on = [google_project_service.redis]
 }
 
 resource "google_project_service" "redis" {
