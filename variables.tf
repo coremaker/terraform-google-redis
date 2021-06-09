@@ -37,3 +37,34 @@ variable "instance_connect_mode" {
     type = string
     default = "PRIVATE_SERVICE_ACCESS"
 }
+
+# Alerts
+variable "enable_alerts" {
+    type = bool
+    default = true
+}
+
+# slack or email supported only
+variable "alerts_type" {
+    type = string
+    default = "slack"
+}
+
+variable "alerts_email_address" {
+    type = list(string)
+    default = ["address@example.com"]
+}
+
+variable "slack_auth_token" {
+    default = "token" # Needs to be replaced with a working token
+}
+
+variable "alerts_slack_channel_name" {
+    type = string
+    default = "redis-alerts"
+}
+
+variable "memory_events_alert_policy_threshold_duration" {
+    type = string
+    default = "900s"
+}
