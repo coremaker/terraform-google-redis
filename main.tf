@@ -1,5 +1,5 @@
 resource "google_redis_instance" "cache" {
-  name           = "reddis-${var.instance_name}-${random_string.redis_name.0.result}"
+  name           = "reddis-${var.instance_name}-${random_string.redis_name.result}"
   tier           = var.instance_tier
   memory_size_gb = var.instance_memory_size
 
