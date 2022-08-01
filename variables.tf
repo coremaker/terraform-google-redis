@@ -38,6 +38,24 @@ variable "instance_connect_mode" {
     default = "PRIVATE_SERVICE_ACCESS"
 }
 
+variable "redis_configs" {
+  description = "The Redis configuration parameters. See [more details](https://cloud.google.com/memorystore/docs/redis/reference/rest/v1/projects.locations.instances#Instance.FIELDS.redis_configs)"
+  type        = map(any)
+  default     = {}
+}
+
+variable "replica_count" {
+  description = "The number of replicas. can"
+  type        = number
+  default     = null
+}
+
+variable "read_replicas_mode" {
+  description = "Read replicas mode. https://cloud.google.com/memorystore/docs/redis/reference/rest/v1/projects.locations.instances#readreplicasmode "
+  type        = string
+  default     = "READ_REPLICAS_DISABLED"
+}
+
 # Alerts
 variable "enable_alerts" {
     type = bool
