@@ -1,5 +1,5 @@
 resource "google_redis_instance" "cache" {
-  name           = "redis-${var.instance_name}-${random_string.redis_name.result}"
+  name           = "${var.instance_name}-${random_string.redis_name.result}"
   tier           = var.instance_tier
   replica_count      = var.instance_tier == "STANDARD_HA" ? var.replica_count : null
   read_replicas_mode = var.instance_tier == "STANDARD_HA" ? var.read_replicas_mode : null
