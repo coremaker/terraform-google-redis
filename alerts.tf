@@ -3,7 +3,7 @@ resource "google_monitoring_alert_policy" "redis_memory_event" {
 
   display_name = "Redis Memory Alert"
 
-  combiner     = "OR"
+  combiner              = "OR"
   notification_channels = var.alerts_type == "slack" ? [google_monitoring_notification_channel.redis_slack_channel.0.name] : google_monitoring_notification_channel.redis_email_channel.*.id
 
   conditions {
@@ -17,11 +17,11 @@ EOT
       threshold_value = "0.75"
       comparison      = "COMPARISON_GT"
       aggregations {
-          alignment_period   = "60s"
-          per_series_aligner = "ALIGN_MAX"
-          cross_series_reducer = "REDUCE_MEAN"
-          group_by_fields = ["project", "resource.label.instance_id"]
-       }
+        alignment_period     = "60s"
+        per_series_aligner   = "ALIGN_MAX"
+        cross_series_reducer = "REDUCE_MEAN"
+        group_by_fields      = ["project", "resource.label.instance_id"]
+      }
     }
   }
   conditions {
@@ -35,11 +35,11 @@ EOT
       threshold_value = "0.9"
       comparison      = "COMPARISON_GT"
       aggregations {
-          alignment_period   = "60s"
-          per_series_aligner = "ALIGN_MAX"
-          cross_series_reducer = "REDUCE_MEAN"
-          group_by_fields = ["project", "resource.label.instance_id"]
-       }
+        alignment_period     = "60s"
+        per_series_aligner   = "ALIGN_MAX"
+        cross_series_reducer = "REDUCE_MEAN"
+        group_by_fields      = ["project", "resource.label.instance_id"]
+      }
     }
   }
   lifecycle {
@@ -51,7 +51,7 @@ resource "google_monitoring_notification_channel" "redis_slack_channel" {
   count = var.enable_alerts && var.alerts_type == "slack" ? 1 : 0
 
   display_name = "Redis Slack Alert"
-  type = "slack"
+  type         = "slack"
   labels = {
     channel_name = var.alerts_slack_channel_name
   }

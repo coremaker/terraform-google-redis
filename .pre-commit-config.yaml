@@ -1,0 +1,12 @@
+repos:
+  - repo: https://github.com/antonbabenko/pre-commit-terraform
+    rev: v1.74.1 # Get the latest from: https://github.com/antonbabenko/pre-commit-terraform/releases
+    hooks:
+      - id: terraform_docs
+        description: Generate documentation for Terraform modules
+        args:
+          - --args=--config=.terraform-docs.yml # here we provide our configuration to override the default behaviour
+          - --hook-config=--create-file-if-not-exist=true # if README.md doesn't exist, it will be created within the specific module
+      - id: terraform_tflint     
+        args:
+          - --args=--config=__GIT_WORKING_DIR__/.tflint.hcl # _GIT_WORKING_DIR_ placeholder will be replaced by terraform_tflint with Git working directory
