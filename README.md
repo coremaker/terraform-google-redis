@@ -4,6 +4,36 @@
 
 This is a terraform module for GCP redis which helps you build a redis instance and set alerts.
 
+# Examples
+
+```terraform
+module "redis" {
+    source = "github.com/coremaker/terraform-google-redis.git"
+
+    instance_authorized_network = google_compute_network_vpc_id
+    instance_name = "prod"
+
+    slack_auth_token = << token >>
+}
+
+resource "google_compute_network" "vpc" {
+    name = "vpc"
+    auto_create_subnetworks = false
+}
+
+resource "kubernetes_config_map" "redis_config" {
+    metadata {
+        name = "redis-config"
+        namespace = "default"
+    }
+
+    data = {
+        host = module.redis.google_redis_instance_cache_host
+        port = module.redis.google_redis_instance_cache_port
+    }
+}
+```
+
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -62,32 +92,4 @@ No modules.
 | <a name="output_google_redis_instance_cache_port"></a> [google\_redis\_instance\_cache\_port](#output\_google\_redis\_instance\_cache\_port) | n/a |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
-# Examples
 
-```terraform
-module "redis" {
-    source = "github.com/coremaker/terraform-google-redis.git"
-
-    instance_authorized_network = google_compute_network_vpc_id
-    instance_name = "prod"
-
-    slack_auth_token = << token >>
-}
-
-resource "google_compute_network" "vpc" {
-    name = "vpc"
-    auto_create_subnetworks = false
-}
-
-resource "kubernetes_config_map" "redis_config" {
-    metadata {
-        name = "redis-config"
-        namespace = "default"
-    }
-
-    data = {
-        host = module.redis.google_redis_instance_cache_host
-        port = module.redis.google_redis_instance_cache_port
-    }
-}
-```
