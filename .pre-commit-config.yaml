@@ -5,12 +5,12 @@ repos:
       - id: terraform_docs
         description: Generates documentation for Terraform modules.
         args:
-          - --args=--config=.terraform-docs.yml
+          - --args=--config=hooks/.terraform-docs.yml
           - --hook-config=--create-file-if-not-exist=true
       - id: terraform_tflint
         description: Validates all Terraform configuration files with TFLint.   
         args:
-          - --args=--config=__GIT_WORKING_DIR__/.tflint.hcl
+          - --args=--config=__GIT_WORKING_DIR__/hooks/.tflint.hcl
       - id: terraform_fmt
         description: Rewrites all Terraform configuration files to a standard format.
         args:
