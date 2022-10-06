@@ -4,7 +4,7 @@ resource "google_monitoring_alert_policy" "redis_memory_event" {
   display_name = "Redis Memory Alert"
 
   combiner              = "OR"
-  notification_channels = var.alerts_type == "slack" ? [google_monitoring_notification_channel.redis_slack_channel.0.name] : google_monitoring_notification_channel.redis_email_channel.*.id
+  notification_channels = var.alerts_type == "slack" ? [google_monitoring_notification_channel.redis_slack_channel[0].name] : google_monitoring_notification_channel.redis_email_channel.*.id
 
   conditions {
     display_name = "Redis instance has reached 75% MEMORY usage"
